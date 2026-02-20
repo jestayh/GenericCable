@@ -1,0 +1,28 @@
+name: genericcable
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy>=1.26.4,<2.0.0
+  - matplotlib>=3.8.3
+  - scipy>=1.12.0
+  - pyproj>=3.6.1
+  - ipykernel
+  - jupyterlab
+  - tqdm
+  - joblib
+  - scikit-learn
+  - ninja
+  # PyTorch con soporte CUDA 12.1 (Recomendado para WSL2 y GPUs modernas)
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - pip:
+    - git+https://github.com/seisfwi/imagex.git
+    - git+https://github.com/seisfwi/seisfwi.git
+    - -e .
