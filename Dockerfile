@@ -53,5 +53,5 @@ RUN find /opt/miniconda/envs/genericcable/lib/python3.10/site-packages/seisfwi -
 # Expose Jupyter port
 EXPOSE 8888
 
-# Start Jupyter Lab
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
+# Start Jupyter Lab with conda environment activated
+CMD ["/bin/bash", "-c", "source activate genericcable && jupyter lab --ip=0.0.0.0 --allow-root --no-browser"]
