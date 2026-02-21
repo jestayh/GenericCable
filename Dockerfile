@@ -13,6 +13,8 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
     rm /miniconda.sh
 
 ENV PATH="/opt/miniconda/bin:$PATH"
+# Set CUDA architecture for PyTorch compilation (Turing/Ampere GPUs: sm_75,sm_86)
+ENV TORCH_CUDA_ARCH_LIST="sm_75;sm_86"
 
 # Accept Conda ToS and configure channels
 RUN conda config --system --prepend channels conda-forge && \
