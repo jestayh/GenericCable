@@ -1,28 +1,53 @@
 name: genericcable
+
+# NOTA IMPORTANTE PARA WSL2:
+# 1. Antes de crear este ambiente, instala las librerías CUDA del sistema:
+#    sudo apt-get install -y libcufft-dev-12-1 cuda-nvrtc-dev-12-1 cuda-nvrtc-12-1
+#
+# 2. NO incluimos pytorch-cuda=12.1 porque:
+#    - PyTorch proporciona sus propios binarios CUDA
+#    - En WSL2, PyTorch accede directamente a la GPU de Windows
+#    - Especificar pytorch-cuda puede causar conflictos
+#
+# 3. NO incluimos el canal 'nvidia' porque PyTorch ya lo maneja
+#
+# Ver SETUP_WSL2.md para instrucciones completas
+
 channels:
   - pytorch
-  - nvidia
   - conda-forge
   - defaults
+
 dependencies:
   - python=3.10
   - pip
+
+  # Dependencias científicas (del pyproject.toml)
   - numpy>=1.26.4,<2.0.0
   - matplotlib>=3.8.3
   - scipy>=1.12.0
   - pyproj>=3.6.1
+
+  # Jupyter y herramientas de desarrollo
   - ipykernel
   - jupyterlab
+
+  # Utilidades
   - tqdm
   - joblib
   - scikit-learn
+
+  # Para compilar extensiones CUDA
   - ninja
-  # PyTorch con soporte CUDA 12.1 (Recomendado para WSL2 y GPUs modernas)
+
+  # PyTorch con soporte CUDA (de PyPI)
+  # CUDA se detecta automáticamente en WSL2
   - pytorch
   - torchvision
   - torchaudio
-  - pytorch-cuda=12.1
+
   - pip:
-    - git+https://github.com/seisfwi/imagex.git
-    - git+https://github.com/seisfwi/seisfwi.git
+    # Simulador sísmico con propagador elástico en CUDA
+    - seisfwi
+    # Instala GenericCable en modo editable (desarrollo)
     - -e .
